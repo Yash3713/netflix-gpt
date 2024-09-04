@@ -7,15 +7,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
-  const navigate = useNavigate();
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
   const email = useRef(null);
   const name = useRef(null);
   const password = useRef(null);
@@ -43,7 +41,6 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -66,7 +63,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse");
           // ...
         })
         .catch((error) => {
@@ -84,7 +80,7 @@ const Login = () => {
     setErrorMessage("");
   };
   return (
-    <div className="relative h-screen">
+    <div className="relative h-screen overflow-hidden">
       <Header />
       <div className="absolute inset-0 z-0">
         <img
