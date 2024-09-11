@@ -6,14 +6,20 @@ import SecContainer from "./SecContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import useTopRatedM from "../hooks/useTopRatedM";
 import UseUpcomingM from "../hooks/UseUpcomingM";
+import useActionMovies from "../hooks/useActionMovies";
+import useComedyMovies from "../hooks/useComedyMovies";
+import usePopularTvShow from "../hooks/usePopularTvShow";
 
 const Browse = () => {
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedM();
   UseUpcomingM();
+  useActionMovies();
+  useComedyMovies();
+  usePopularTvShow();
   return (
-    <div className="overflow-x-hidden">
+    <div className="overscroll-x-none">
       <Header />
       <MainContainer />
       <SecContainer />

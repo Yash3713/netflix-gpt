@@ -22,6 +22,9 @@ export const Upcoming_movie_API =
 export const Video_API =
   "https://api.themoviedb.org/3/movie/533535/videos?language=en-US";
 
+export const Popular_TvShow_API =
+  "https://api.themoviedb.org/3/tv/popular?language=en-US&page=1";
+
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500/";
 
 export const Supported_Languages = [
@@ -29,3 +32,6 @@ export const Supported_Languages = [
   { identifier: "hindi", language: "Hindi" },
   { identifier: "spanish", language: "Spanish" },
 ];
+
+export const OPENAI_Key =
+  "sk-oyrXHoSrqtR9__AHHtsS13j4bL6zrE-yVXzkILkfFeT3BlbkFJJec24Zj9BPaSwzAXWURz0jWS1iQj8sXMAz7Jf3LbYA";

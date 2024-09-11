@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 const SecContainer = () => {
   const movies = useSelector((store) => store.movie);
-  console.log(movies);
+  const TvShows = useSelector((store) => store.TvShow);
   return (
-    movies && (
+    movies &&  (
       <div className="bg-black">
         <div className="relative z-20 -mt-50">
           <MovieList
@@ -22,6 +22,8 @@ const SecContainer = () => {
             title={"Upcoming Movies"}
             movies={movies?.upcoming?.results}
           />
+          <MovieList title={"Action Movies"} movies={movies?.actionMovie} />
+          <MovieList title={"Comedy Movies"} movies={movies?.comedyMovie} />
         </div>
       </div>
     )

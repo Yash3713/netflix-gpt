@@ -7,7 +7,10 @@ const SearchBar = () => {
   return (
     <div className="flex pt-[10%] justify-center">
       {" "}
-      <form className="w-1/2 bg-black grid grid-cols-12 p-4 rounded-lg shadow-lg">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="w-1/2 bg-black grid grid-cols-12 p-4 rounded-lg shadow-lg"
+      >
         {" "}
         <input
           type="text"
