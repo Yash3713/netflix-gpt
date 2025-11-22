@@ -6,17 +6,17 @@ import SecContainer from "./SecContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import useTopRatedM from "../hooks/useTopRatedM";
 import UseUpcomingM from "../hooks/UseUpcomingM";
-import useActionMovies from "../hooks/useActionMovies";
-import useComedyMovies from "../hooks/useComedyMovies";
 import usePopularTvShow from "../hooks/usePopularTvShow";
+import useMoviesByGenre from "../hooks/useMoviesByGenre";
+import { addactionMovies, addComedyMovies } from "../Utils/movieSlice";
 
 const Browse = () => {
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedM();
   UseUpcomingM();
-  useActionMovies();
-  useComedyMovies();
+  useMoviesByGenre(28, addactionMovies); // Action Movies
+  useMoviesByGenre(35, addComedyMovies); // Comedy Movies
   usePopularTvShow();
   return (
     <div className="overscroll-x-none">

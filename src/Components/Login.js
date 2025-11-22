@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import { checkValidate } from "../Utils/validate";
 import {
@@ -12,39 +12,35 @@ import { addUser } from "../Utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
-  const email = useRef(null);
-  const name = useRef(null);
-  const password = useRef(null);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleButtonClick = () => {
-    const message = checkValidate(email.current.value, password.current.value);
+    const message = checkValidate(email, password);
     setErrorMessage(message);
     if (message) return;
+
     if (!isSignInForm) {
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      // Sign Up Logic
+      createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // Signed up
           const user = userCredential.user;
           updateProfile(user, {
-            displayName: name.current.value,
+            displayName: name,
             photoURL: "https://example.com/jane-q-user/profile.jpg",
           })
             .then(() => {
-              // Profile updated
               const { uid, email, displayName } = auth.currentUser;
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
             })
             .catch((error) => {
-              // An error occurred
-              setErrorMessage(error);
+              setErrorMessage(error.message);
             });
         })
         .catch((error) => {
@@ -53,15 +49,11 @@ const Login = () => {
           setErrorMessage(errorCode + "- " + errorMessage);
         });
     } else {
-      signInWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      // Sign In Logic
+      signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -73,10 +65,9 @@ const Login = () => {
 
   const toggleSignInForm = () => {
     setIsSignForm(!isSignInForm);
-    email.current.value = "";
-    password.current.value = "";
-    setErrorMessage("");
+    setErrorMessage(null);
   };
+
   return (
     <div className="relative h-screen overflow-hidden">
       <Header />
@@ -84,7 +75,7 @@ const Login = () => {
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/36a4db5b-dec2-458a-a1c0-662fa60e7473/1115a02b-3062-4dcc-aae0-94028a0dcdff/IN-en-20240820-TRIFECTA-perspective_WEB_eeff8a6e-0384-4791-a703-31368aeac39f_large.jpg"
           alt="bg"
-          className="object-cover"
+          className="object-cover w-full h-full"
         />
       </div>
       <div className="flex justify-center items-center h-full relative z-10 ">
@@ -92,39 +83,42 @@ const Login = () => {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="p-12 w-3/12 bg-black text-white rounded-md bg-opacity-80"
+          className="p-12 w-full md:w-3/12 bg-black text-white rounded-md bg-opacity-80"
         >
           <h1 className="font-bold text-2xl p-3 my-2">
             {isSignInForm ? "Sign In" : "Sign Up"}
           </h1>
           {!isSignInForm && (
             <input
-              ref={name}
               type="text"
               placeholder="Full name"
-              className="p-4 my-3 w-full rounded-md bg-gray-800 "
+              className="p-4 my-3 w-full rounded-md bg-gray-800 text-white"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           )}
           <input
-            ref={email}
             type="text"
             placeholder="Email or mobile number"
-            className="p-4 my-3 w-full rounded-md bg-gray-800"
+            className="p-4 my-3 w-full rounded-md bg-gray-800 text-white"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            ref={password}
             type="password"
             placeholder="Password"
-            className="p-4 my-3 w-full rounded-md bg-gray-800 "
+            className="p-4 my-3 w-full rounded-md bg-gray-800 text-white"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-red-600 font-semibold text-sm">{errorMessage}</p>
+          <p className="text-red-600 font-semibold text-sm py-2">{errorMessage}</p>
           <button
-            className="p-4 my-3 bg-red-700 rounded-md w-full "
+            className="p-4 my-3 bg-red-700 rounded-md w-full font-bold"
             onClick={handleButtonClick}
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
-          <p className="cursor-pointer" onClick={toggleSignInForm}>
+          <p className="cursor-pointer py-4" onClick={toggleSignInForm}>
             {isSignInForm
               ? "New to Netflix? Sign Up Now."
               : "Already a User? Sign In Now."}
