@@ -12,7 +12,7 @@ const MovieList = ({ title, movies }) => {
               <MovieCard
                 key={movie?.id}
                 posterPath={movie?.poster_path}
-                movies={movie?.id}
+                movies={movie}
               />
             ))}
           </div>
@@ -22,4 +22,4 @@ const MovieList = ({ title, movies }) => {
   );
 };
 
-export default MovieList;
+export default React.memo(MovieList);

@@ -15,8 +15,8 @@ const Browse = () => {
   usePopularMovies();
   useTopRatedM();
   UseUpcomingM();
-  useMoviesByGenre(28, addactionMovies); // Action Movies
-  useMoviesByGenre(35, addComedyMovies); // Comedy Movies
+  useMoviesByGenre(28, addactionMovies, "actionMovie"); // Action Movies
+  useMoviesByGenre(35, addComedyMovies, "comedyMovie"); // Comedy Movies
   usePopularTvShow();
   return (
     <div className="overscroll-x-none">

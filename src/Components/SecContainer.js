@@ -11,7 +11,7 @@ const SecContainer = () => {
         <div className="relative z-20 -mt-50">
           <MovieList
             title={"Now Playing"}
-            movies={movies?.nowPlayingMovies?.results}
+            movies={movies?.nowPlayingMovies}
           />
           <MovieList
             title={"Popular Movies"}
